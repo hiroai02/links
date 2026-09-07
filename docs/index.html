@@ -105,9 +105,11 @@
   .card.amazon::before{ background:linear-gradient(var(--coral), var(--coral-deep)); }
   .card.rakuten::before{ background:linear-gradient(var(--mint), #3f9c81); }
   .card.note::before{ background:linear-gradient(var(--lavender), var(--violet-deep)); }
+  .card.home::before{ background:linear-gradient(var(--peach), var(--coral-deep)); }
   .card:nth-of-type(1){ animation-delay:.1s; }
   .card:nth-of-type(2){ animation-delay:.18s; }
   .card:nth-of-type(3){ animation-delay:.26s; }
+  .card:nth-of-type(4){ animation-delay:.34s; }
   .card:hover{ transform:translateY(-3px) scale(1.01); box-shadow:0 16px 32px rgba(74,59,50,0.15); background:rgba(255,255,255,0.82); }
   @keyframes rise{ from{ opacity:0; transform:translateY(12px);} to{ opacity:1; transform:none; } }
 
@@ -121,6 +123,7 @@
   .card.amazon .ic{ background:linear-gradient(150deg, var(--coral), var(--coral-deep)); }
   .card.rakuten .ic{ background:linear-gradient(150deg, var(--mint), #3f9c81); }
   .card.note .ic{ background:linear-gradient(150deg, var(--lavender), var(--violet-deep)); }
+  .card.home .ic{ background:linear-gradient(150deg, var(--peach), var(--coral-deep)); }
 
   .card .body{ flex:1; min-width:0; }
   .card .title{ font-size:15.5px; font-weight:700; }
@@ -161,6 +164,15 @@
   </div>
 
   <div class="links">
+    <a class="card home" href="https://hiroai02.github.io/land-risk-view/" target="_blank" rel="noopener">
+      <div class="ic">🏠</div>
+      <div class="body">
+        <div class="title">おうち探しノート</div>
+        <div class="desc">新築の土地選びから引っ越し後まで。おうちづくりの総合サポート(無料・登録不要)</div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+
     <a class="card amazon" href="https://hiroai02.github.io/" target="_blank" rel="noopener">
       <div class="ic">🛒</div>
       <div class="body">
