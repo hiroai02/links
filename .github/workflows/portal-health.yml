@@ -1,0 +1,43 @@
+name: Portal health check
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - ".github/workflows/portal-health.yml"
+  schedule:
+    - cron: "17 22 * * 0"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify local portal assets and internal paths
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f docs/index.html
+          test -f docs/404.html
+          for f in profile.png hero.png compare.png shopping.png home.png; do
+            test -s "docs/assets/$f"
+          done
+          grep -q '/links/assets/profile.png' docs/index.html
+          grep -q '/links/assets/hero.png' docs/index.html
+          grep -q '/links/assets/compare.png' docs/index.html
+          grep -q '/links/assets/shopping.png' docs/index.html
+          grep -q '/links/assets/home.png' docs/index.html
+          ! grep -Eq 'hero-misaki\.jpg|cat-shuno\.jpg|cat-mado\.jpg' docs/index.html
+      - name: Verify published portal
+        if: github.event_name != 'push'
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --location --retry 3 --retry-delay 2 https://hiroai02.github.io/links/ -o /tmp/portal.html
+          for p in profile.png hero.png compare.png shopping.png home.png; do
+            curl --fail --location --retry 3 --retry-delay 2 "https://hiroai02.github.io/links/assets/$p" -o /dev/null
+          done
