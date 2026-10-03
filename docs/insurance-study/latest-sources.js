@@ -33,7 +33,27 @@ function pick(topic,text){const x=(topic+' '+text);
  return S.life;
 }
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
-function refresh(){const fb=document.getElementById('feedback'),sr=document.getElementById('sourceRef'),topicEl=document.getElementById('source'),qEl=document.getElementById('question');if(!fb||!sr||!topicEl||!qEl||!fb.classList.contains('show'))return;const base=(sr.textContent||'').split(' ｜ 最新確認：')[0].trim();if(!base)return;const topic=(topicEl.textContent||'').replace(/^重点・/,'');const s=pick(topic,qEl.textContent||'');const key=base+'|'+s.url;if(sr.dataset.latestKey===key&&sr.querySelector('a[data-latest-source]'))return;sr.dataset.latestKey=key;sr.innerHTML=esc(base)+' <span style="color:#60769c">｜</span> <span style="color:#9fb2d9">最新確認：</span><a data-latest-source href="'+s.url+'" target="_blank" rel="noopener noreferrer" style="color:#49d7a0;text-decoration:none;font-weight:900">'+esc(s.label)+' ↗</a>'}
-function init(){const fb=document.getElementById('feedback');if(!fb)return;new MutationObserver(()=>queueMicrotask(refresh)).observe(fb,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});refresh()}
+function refresh(){const fb=document.getElementById('feedback'),sr=document.getElementById('sourceRef'),topicEl=document.getElementById('source'),qEl=document.getElementById('question');if(!fb||!sr||!topicEl||!qEl||!fb.classList.contains('show'))return;const base=(sr.textContent||'').split(' ｜ 最新確認：')[0].trim();if(!base)return;const topic=(topicEl.textContent||'').replace(/^重点・/,'').replace(/^計算・/,'');const s=pick(topic,qEl.textContent||'');const key=base+'|'+s.url;if(sr.dataset.latestKey===key&&sr.querySelector('a[data-latest-source]'))return;sr.dataset.latestKey=key;sr.innerHTML=esc(base)+' <span style="color:#60769c">｜</span> <span style="color:#9fb2d9">最新確認：</span><a data-latest-source href="'+s.url+'" target="_blank" rel="noopener noreferrer" style="color:#49d7a0;text-decoration:none;font-weight:900">'+esc(s.label)+' ↗</a>'}
+
+const ruleTerms=['必ず','原則として','原則','一切','のみ','だけ','以内','以上','以下','未満','超える','同額','異なる','多い','少ない','高い','低い','対象外','不要','必要','支払われない','支払われる','消滅','継続','非課税','控除','免許','登録','認可','監督'];
+const conceptTerms=['予定利率','予定死亡率','予定事業費率','運用収入見込額','実際の運用収入','利差益','死差益','費差益','純保険料','付加保険料','生命保険料控除','解約返戻金','死亡保険金','高度障害保険金','満期保険金','責任開始期','保険料払込猶予期間','自動振替貸付','契約者貸付','告知義務','失効','復活','終身保険','定期保険','養老保険','個人年金保険','変額保険','JA共済','こくみん共済','都道府県民共済','少額短期保険','損害保険','第三分野','国民年金','厚生年金','確定拠出年金','iDeCo','相続税','贈与税','一時所得','法定相続人','割戻金','契約転換制度','ポータビリティ'];
+const ruleSet=new Set(ruleTerms);
+function rxEscape(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+const terms=[...new Set([...ruleTerms,...conceptTerms])].sort((a,b)=>b.length-a.length).map(rxEscape);
+const numberPattern='\\d[\\d,]*(?:\\.\\d+)?(?:％|%|兆円|億円|万円|千円|円|年|か月|ヶ月|月|日|歳|名|回|分の\\d+)?';
+const focusRe=new RegExp('('+terms.join('|')+'|'+numberPattern+')','g');
+const numberOnly=new RegExp('^'+numberPattern+'$');
+function enhanceQuestion(){const q=document.getElementById('question');if(!q)return;const text=(q.textContent||'').replace(/\s+/g,' ').trim();if(!text||q.dataset.cleanLayoutText===text)return;q.dataset.cleanLayoutText=text;const html=esc(text).replace(focusRe,m=>'<span class="'+(ruleSet.has(m)||numberOnly.test(m)?'keypoint':'conceptpoint')+'">'+m+'</span>');q.innerHTML=html}
+function tidySource(){const e=document.getElementById('source');if(!e)return;const t=e.textContent||'';if(/^計算・計算・/.test(t))e.textContent=t.replace(/^計算・計算・/,'計算・')}
+function injectLayoutFix(){if(document.getElementById('study-ui-fix-v8'))return;const st=document.createElement('style');st.id='study-ui-fix-v8';st.textContent=`
+#question.question{display:block!important;padding:18px 8px 8px!important;text-align:left!important;font-size:clamp(17px,2.02dvh,20px)!important;line-height:1.62!important;font-weight:820!important;white-space:normal!important;word-break:normal!important;overflow-wrap:break-word!important;line-break:strict!important;letter-spacing:.01em!important}
+#question.question.long{font-size:clamp(16px,1.87dvh,18.5px)!important;line-height:1.58!important}
+#question.question.xlong{font-size:clamp(14.5px,1.68dvh,17px)!important;line-height:1.52!important}
+#qCard.mcq-mode #question.question{padding-top:14px!important;font-size:clamp(15px,1.76dvh,17.5px)!important;line-height:1.52!important}
+#question .keypoint{color:#ffd45e!important;background:rgba(255,212,94,.10)!important;border-radius:.22em!important;padding:0 .07em!important;font-weight:950!important;text-shadow:none!important}
+#question .conceptpoint{color:#72d9ff!important;font-weight:950!important;text-shadow:none!important}
+@media(max-height:740px){#question.question{padding:12px 5px 6px!important;font-size:15.5px!important;line-height:1.5!important}#question.question.long{font-size:14.5px!important}#question.question.xlong{font-size:13.5px!important}#qCard.mcq-mode #question.question{font-size:13.5px!important;padding-top:9px!important}}
+`;document.head.appendChild(st)}
+function init(){injectLayoutFix();const fb=document.getElementById('feedback'),q=document.getElementById('question'),src=document.getElementById('source');if(fb)new MutationObserver(()=>queueMicrotask(refresh)).observe(fb,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});const rerender=()=>queueMicrotask(()=>{tidySource();enhanceQuestion();refresh()});if(q)new MutationObserver(rerender).observe(q,{subtree:true,childList:true,characterData:true});if(src)new MutationObserver(rerender).observe(src,{subtree:true,childList:true,characterData:true});rerender()}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>setTimeout(init,0));else setTimeout(init,0);
 })();
