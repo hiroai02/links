@@ -32,4 +32,5 @@ window.STUDY_META.moreAdded=A.length;
 window.STUDY_META.questions=window.STUDY_QUESTIONS.length;
 window.STUDY_META.focusQuestions=window.STUDY_QUESTIONS.filter(q=>q.focus).length;
 window.STUDY_META.calcQuestions=window.STUDY_QUESTIONS.filter(q=>q.calc).length;
+const s=document.createElement('script');s.src='./latest-sources.js?v=7';document.head.appendChild(s);
 })();
