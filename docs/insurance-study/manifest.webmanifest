@@ -1,0 +1,12 @@
+{
+  "name": "生命保険 専門課程 過去問ドリル",
+  "short_name": "専門課程ドリル",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#07101f",
+  "theme_color": "#07101f",
+  "lang": "ja",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
