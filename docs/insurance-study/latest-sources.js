@@ -1,4 +1,13 @@
 (()=>{
+const RESET_MARK='insurance-study-reset-20261003-v13';
+try{
+ if(localStorage.getItem(RESET_MARK)!=='done'){
+  ['life-specialist-study-v4','life-specialist-study-v3','life-specialist-study-v2','specialistStudyStandaloneV1'].forEach(k=>localStorage.removeItem(k));
+  localStorage.setItem(RESET_MARK,'done');
+  location.reload();
+  return;
+ }
+}catch(e){}
 const S={
  taxDeduction:{label:'国税庁・生命保険料控除（令和8年4月1日現在）',url:'https://www.nta.go.jp/taxes/shiraberu/taxanswer/shotoku/1140.htm'},
  inheritInsurance:{label:'国税庁・死亡保険金の相続税（令和8年4月1日現在）',url:'https://www.nta.go.jp/taxes/shiraberu/taxanswer/sozoku/4114.htm'},
