@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Free Etsy Order Profit Calculator | Hiroverse Templates</title>
+<meta name="description" content="Estimate how much you keep from an Etsy sale after materials, shipping and fees. Free, editable rates, no signup and no saved order data.">
+<link rel="canonical" href="https://hiroai02.github.io/links/etsy-profit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Etsy Order Profit Calculator">
+<meta property="og:description" content="Sales are not profit. Check one Etsy order in seconds—free, editable rates, no signup.">
+<meta property="og:url" content="https://hiroai02.github.io/links/etsy-profit/">
+<meta name="theme-color" content="#11263d">
+<style>
+:root{color-scheme:light;--ink:#11263d;--muted:#50677e;--accent:#117a72;--surface:#fff;--bg:#f3f7f7;--line:#dce8e8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,Arial,sans-serif}
+main{max-width:1050px;margin:auto;padding:28px 20px 76px}
+header{padding:24px 0 20px}
+.eyebrow{font-size:12px;font-weight:900;color:var(--accent);letter-spacing:.12em}
+h1{font-size:clamp(28px,4vw,43px);line-height:1.2;max-width:810px;margin:8px 0 15px;letter-spacing:-.035em}
+.lead{max-width:770px;color:var(--muted);font-size:17px;margin:0}
+.chip{display:inline-block;padding:6px 12px;margin:16px 7px 0 0;background:#e7f1ef;color:#13675e;border:1px solid #b3d6d0;border-radius:100px;font-size:12px;font-weight:850}
+.layout{display:grid;grid-template-columns:minmax(0,1.13fr) minmax(0,.87fr);gap:20px;align-items:start;margin-top:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:19px;box-shadow:0 15px 44px #1d43520d;padding:26px}
+h2{font-size:21px;line-height:1.35;margin:0 0 16px}
+.section-title{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent);font-weight:900;margin:16px 0 10px}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+label{display:block;font-size:13px;font-weight:800;color:#35556c}
+label input{display:block;width:100%;padding:12px;margin-top:5px;font:inherit;font-size:17px;color:var(--ink);background:#f8fbfb;border:1px solid #c4d7d9;border-radius:9px}
+label input:focus-visible,a:focus-visible{outline:3px solid #44bbac;outline-offset:3px}
+.hint{font-size:12px;color:var(--muted);margin:10px 0}
+.summary{background:#112c3d;color:#fff;border-radius:14px;padding:21px}
+.summary small{font-size:12px;color:#abd5d2;font-weight:800}
+.summary strong{display:block;font-size:39px;line-height:1.2;margin:5px 0 10px;font-variant-numeric:tabular-nums;letter-spacing:-.04em}
+.summary p{font-size:13px;color:#c3d9e2;margin:0}
+.summary.negative strong{color:#ffb3b3}
+.metrics{margin:17px 0 0}
+.metrics div{display:flex;justify-content:space-between;gap:14px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.metrics dt{color:var(--muted)}
+.metrics dd{font-weight:800;margin:0;font-variant-numeric:tabular-nums;text-align:right}
+.cta{margin:24px 0 0;padding:23px;border-radius:16px;background:#e7f4f0;border:1px solid #9acbbb}
+.cta h2{margin:0 0 7px}
+.cta p{margin:0 0 15px;color:#345b54;font-size:15px}
+a.button{display:inline-flex;align-items:center;justify-content:center;background:var(--accent);color:white;border-radius:10px;text-decoration:none;padding:12px 19px;font-weight:900;min-height:48px}
+a.button:hover{background:#0e635c}
+.note{color:var(--muted);font-size:12px;margin:14px 0 0;line-height:1.7}
+.footer{font-size:12px;color:#647b8b;margin-top:25px}
+.footer a{color:#136e6d}
+@media(max-width:790px){.layout{grid-template-columns:1fr}.panel{padding:19px}main{padding:20px 14px 60px}}
+@media(max-width:400px){.fields{gap:9px}label{font-size:12px}label input{font-size:16px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">HIROVERSE TEMPLATES / FREE SELLER TOOL</div>
+<h1>Your Etsy sales look good. But what do you actually keep?</h1>
+<p class="lead">Use your own costs and fee rates to estimate one order’s contribution. It’s free and runs entirely in your browser. No signup, data submission or account needed.</p>
+<span class="chip">✓ Free calculator</span><span class="chip">✓ Editable fees</span><span class="chip">✓ No signup</span>
+</header>
+<div class="layout">
+<section class="panel" aria-labelledby="calcTitle">
+<h2 id="calcTitle">Check one order</h2>
+<p class="section-title">Money received and direct costs · USD</p>
+<div class="fields">
+<label>Item price ($)<input id="price" type="number" min="0" max="1000000" step=".01" value="25" inputmode="decimal"></label>
+<label>Shipping charged to buyer ($)<input id="buyerShipping" type="number" min="0" max="1000000" step=".01" value="5" inputmode="decimal"></label>
+<label>Materials and packaging ($)<input id="materials" type="number" min="0" max="1000000" step=".01" value="7" inputmode="decimal"></label>
+<label>Shipping you pay ($)<input id="shipping" type="number" min="0" max="1000000" step=".01" value="5.20" inputmode="decimal"></label>
+</div>
+<p class="section-title">Editable fee assumptions · replace with your actual account fees</p>
+<div class="fields">
+<label>Transaction fee (%)<input id="transaction" type="number" min="0" max="100" step=".01" value="6.5" inputmode="decimal"></label>
+<label>Processing fee (%)<input id="processing" type="number" min="0" max="100" step=".01" value="3" inputmode="decimal"></label>
+<label>Fixed / listing fees ($)<input id="fixed" type="number" min="0" max="100000" step=".01" value=".45" inputmode="decimal"></label>
+<label>Other order fees / ads ($)<input id="other" type="number" min="0" max="100000" step=".01" value="0" inputmode="decimal"></label>
+</div>
+<p class="hint">Example fee rates are illustrative and may not match your country, payment method or Etsy account. Consult your actual order statement. Offsite Ads, taxes and extra fees must be added as appropriate.</p>
+</section>
+<section class="panel" aria-labelledby="resultsTitle">
+<h2 id="resultsTitle">Estimated contribution</h2>
+<div id="summary" class="summary" role="status" aria-live="polite"><small>What remains before other expenses and tax</small><strong id="result">$0.00</strong><p>Not your final after-tax net profit. Your time, overhead and taxes may also apply.</p></div>
+<dl class="metrics">
+<div><dt>Order revenue</dt><dd id="revenue">$0.00</dd></div>
+<div><dt>Materials + shipping paid</dt><dd id="cost">$0.00</dd></div>
+<div><dt>Estimated selling fees</dt><dd id="fees">$0.00</dd></div>
+<div><dt>Contribution margin</dt><dd id="margin">0%</dd></div>
+</dl>
+<div class="cta">
+<h2>Tracking more than one order?</h2>
+<p>A spreadsheet can help keep sales, costs and monthly totals organized. Explore the Etsy Seller Profit &amp; Expense Tracker and see whether it fits your shop.</p>
+<a class="button" href="https://hiroverse76.gumroad.com/l/kdumii?utm_source=github_pages&utm_medium=organic&utm_campaign=etsy_profit_w01" target="_blank" rel="noopener noreferrer">Explore the paid tracker →</a>
+<p class="note">The paid product is hosted by Gumroad. Current checkout terms, supported files and pricing are shown on its product page.</p>
+</div>
+</section>
+</div>
+<p class="footer">For planning and education only; not accounting or tax advice. No inputs are saved or transmitted by this calculator. <a href="https://hiroverse76.gumroad.com/" target="_blank" rel="noopener noreferrer">Hiroverse Templates shop</a>.</p>
+</main>
+<script>
+"use strict";
+(function(){
+ const ids=["price","buyerShipping","materials","shipping","transaction","processing","fixed","other"];
+ const $=id=>document.getElementById(id);
+ const get=id=>{const v=Number($(id).value);return Number.isFinite(v)&&v>=0?v:0;};
+ const money=v=>"$"+v.toFixed(2);
+ function calculate(){
+  const price=get("price"),charged=get("buyerShipping");
+  const revenue=price+charged;
+  const direct=get("materials")+get("shipping");
+  const fees=revenue*(get("transaction")+get("processing"))/100+get("fixed")+get("other");
+  const remaining=revenue-direct-fees;
+  $("result").textContent=(remaining<0?"−":"")+money(Math.abs(remaining));
+  $("revenue").textContent=money(revenue);
+  $("cost").textContent=money(direct);
+  $("fees").textContent=money(fees);
+  $("margin").textContent=revenue>0?(100*remaining/revenue).toFixed(1)+"%":"N/A";
+  $("summary").classList.toggle("negative",remaining<0);
+ }
+ ids.forEach(id=>$(id).addEventListener("input",calculate));
+ calculate();
+})();
+</script>
+</body>
+</html>
